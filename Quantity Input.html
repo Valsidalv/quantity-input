@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Quantity input</title>
+</head>
+<body>
+    
+    <div id="app">
+        <my-component></my-component>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+        Vue.component('my-component', {
+            template: `<div>
+                <select v-on:change="changed($event)" v-if="shown" >
+                    <option value="">Select amount</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10+</option>
+                </select>
+                <div v-else>
+                    <input type="number" v-model="num" />
+                    <button v-on:click="update(num)">Update</button>
+                </div>
+                <p>Cart: {{ cart }}</p>
+                </div>`,
+            data() {
+                return { 
+                    cart: 0,
+                    shown: true,
+                    num: null
+                };
+            },
+            methods: {
+                changed(event) { 
+                    if(event.target.value == '10'){
+                        this.shown = false;
+                        this.cart = event.target.value;
+                    }
+                    else if(event.target.value == '') {
+                        this.cart = cart;
+                    }
+                    else {
+                        this.cart = event.target.value;
+                    }
+                },
+                update(value) {
+                    this.num = value; 
+                    this.cart = this.num;
+                }
+            }
+            
+        });
+        
+        var app = new Vue({
+            el: '#app',
+        });
+
+    </script>
+</body>
+</html>
